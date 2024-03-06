@@ -1,0 +1,29 @@
+Aplikacja ta jest napisana w języku Python przy użyciu frameworka Flask. Pozwala ona użytkownikom dodawać nowe książki, przeglądać listę istniejących książek, edytować szczegóły książki oraz usuwać książki.
+
+Instalacja
+Pobierz pliki app.py, models.py, forms.py, oraz pliki szablonów HTML (np. liblary.html, book.html) a następnie umieść je w wybranym folderze
+
+Utwórz wirtualne środowisko: 
+-Przejdź do katalogu, w którym chcesz utworzyć projekt, a następnie utwórz wirtualne środowisko Pythona:
+python3 -m venv venv
+
+Aktywuj wirtualne środowisko: 
+-Aktywuj wirtualne środowisko. W zależności od systemu operacyjnego, komenda może się różnić:
+
+Windows:
+Napisz komendę w konsoli:
+-venv\Scripts\activate
+
+macOS/Linux:
+Napisz komendę w konsoli:
+-source venv/bin/activate
+
+Zainstaluj Flask: 
+-Zainstaluj framework Flask przy użyciu pip:
+
+Copy code
+pip install flask
+Uruchom aplikację: Uruchom aplikację Flask:
+
+Copy code
+python app.py
