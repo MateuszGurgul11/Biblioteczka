@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styl.css">
+    <title>Biblioteczka</title>
+</head>
+<body>
+    
+    <h2>Lista zadan</h2>
+    <table>
+        <thead>
+            <th>Tytuł</th>
+            <th>Data wydania</th>
+            <th>Ilość stron</th>
+            <th>Kolor okładki</th>
+            <th>Czy jest na półce</th>
+        </thead>
+        {% for book in liblary %}
+            <tr>
+                <td><a href="/liblary/{{ loop.index }}">{{ book.title }}</a></td>
+                <td>{{ book.creation_date }}</td>
+                <td>{{ book.page_number }}</td>
+                <td>{{ book_color }}</td>
+                <td>{{ book.shelf }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div>
+        <h2>Dodaje nową ksiązkę: </h2>
+        <form action="/liblary/", method="post">
+            {{ form.hidden_tag() }}
+            <table>
+                {% for field in form if field.widget.input_type != 'hidden' %}
+                    <tr>
+                        <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                        <td>{{ field }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Prześlij">
+        </form>
+    </div>
+
+</body>
+</html>
