@@ -10,3 +10,35 @@ table, td, th, tr
     border: 1px solid black;
 }
 
+.books_list
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+    margin-top: 200px;
+}
+
+.books_list td
+{
+    text-decoration: none;
+    text-align: center;
+}
+
+.add_new
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.add_new form
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

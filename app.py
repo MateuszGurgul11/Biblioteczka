@@ -3,7 +3,7 @@ from models import liblary
 from forms import LiblaryForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "ninini"
+app.config['SECRET_KEY'] = "secret_key"
 
 @app.route("/api/v1/liblary/", methods=["GET"])
 def liblary_list_api_v1():
@@ -16,19 +16,25 @@ def get_book(book_id):
         abort(404)
     return jsonify({"book": book})
 
-@app.route("/api/v1/liblary/", methods = ['POST'])
+@app.route("/api/v1/liblary/", methods=['POST'])
 def create_book():
     if not request.json or not 'title' in request.json:
         abort(400)
+    
+    if not liblary.all():
+        new_id = 1
+    else:
+        new_id = liblary.all()[-1]['id'] + 1
+
     book = {
-        'id' : liblary.all()[-1]['id'] + 1,
-        'title' : request.json['title'],
-        'book_color' : request.json.get('book_color', ""),
-        'page_number' : request.json.get('page_number', ""),
-        'shelf' : False
+        'id': new_id,
+        'title': request.json['title'],
+        'book_color': request.json.get('book_color', ""),
+        'page_number': request.json.get('page_number', ""),
+        'shelf': False
     }
     liblary.create(book)
-    return jsonify({'book' : book}), 201
+    return jsonify({'book': book}), 201
 
 @app.route("/api/v1/liblary/<int:book_id>", methods = ['DELETE'])
 def delete_book(book_id):
@@ -85,6 +91,13 @@ def liblary_details(book_id):
             liblary.update(book_id - 1, form.data)
         return redirect(url_for("liblary_list"))
     return render_template("book.html", form=form, book_id=book_id)
+
+@app.route("/liblary/<int:book_id>", methods = ['DELETE'])
+def delete_web_book(book_id):
+    result = liblary.delete(book_id)
+    if not result:
+        abort(404)
+    return redirect(url_for("liblary_list"))
 
 @app.errorhandler(404)
 def not_found(error):

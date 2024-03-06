@@ -7,28 +7,36 @@
     <title>Biblioteczka</title>
 </head>
 <body>
-    
-    <h2>Lista zadan</h2>
-    <table>
-        <thead>
-            <th>Tytuł</th>
-            <th>Data wydania</th>
-            <th>Ilość stron</th>
-            <th>Kolor okładki</th>
-            <th>Czy jest na półce</th>
-        </thead>
-        {% for book in liblary %}
-            <tr>
-                <td><a href="/liblary/{{ loop.index }}">{{ book.title }}</a></td>
-                <td>{{ book.creation_date }}</td>
-                <td>{{ book.page_number }}</td>
-                <td>{{ book_color }}</td>
-                <td>{{ book.shelf }}</td>
-            </tr>
-        {% endfor %}
-    </table>
 
-    <div>
+    <div class="books_list">
+        <h2>Lista zadan</h2>
+        <table>
+            <thead>
+                <th>Tytuł</th>
+                <th>Data wydania</th>
+                <th>Ilość stron</th>
+                <th>Kolor okładki</th>
+                <th>Czy jest na półce</th>
+            </thead>
+            {% for book in liblary %}
+                <tr>
+                    <td><a href="/liblary/{{ loop.index }}">{{ book.title }}</a></td>
+                    <td>{{ book.creation_date }}</td>
+                    <td>{{ book.page_number }}</td>
+                    <td>{{ book_color }}</td>
+                    <td>{{ book.shelf }}</td>
+                    <td>
+                        <form action="/liblary/{{ book_id }}", method="post">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit">Usuń</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="add_new">
         <h2>Dodaje nową ksiązkę: </h2>
         <form action="/liblary/", method="post">
             {{ form.hidden_tag() }}
